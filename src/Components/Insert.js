@@ -1,10 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Insert = () => {
   const [newProgram, setNewProgram] = useState({});
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if( sessionStorage.getItem("useName") === null ){
+      navigate("../login");
+    }
+  }, [navigate])
 
   return (
     <div className="main my-5 mx-5 w-75">

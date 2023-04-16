@@ -1,12 +1,18 @@
 import React from 'react';
 import { useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom';
 
 const SelectAllTopic = () => {
 
   const [topicObj, setTopicObj] = useState([]);
 
-//   const navigate = useNavigate();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if( sessionStorage.getItem("useName") === null ){
+      navigate("../login");
+    }
+  }, [navigate])
 
   useEffect(() => {
     fetch("https://localhost:5001/api/MST_ProgramTopic")
@@ -19,47 +25,18 @@ const SelectAllTopic = () => {
       .catch((e) => {});
   }, []);
 
-//   const Delete = (id) => {
-//     fetch(`https://localhost:5001/api/MST_ProgramTopic/${id}`, {
-//       method: "DELETE",
-//     }).then((resp) => {
-//       navigate("./SelectAllTopic");
-//     });
-//   };
-
   const allTopics = topicObj.map((topic) => {
     return (
       <>
         <tr>
           <td>
-            {/* <Link
-              to={"./SelectByID/" + program.id}
+            <Link
+              to={"./SelectByTopicName/"+ topic.id + "/" +topic.topic_Name}
               style={{ textDecoration: "none" }}
-            > */}
-              {topic.topic_Name}
-            {/* </Link> */}
-          </td>
-          {/* <td>
-            <button className="btn btn-outline-info">
-              <Link
-                to={"./UpdateByID/" + topic.id}
-                className="text-decoration-none"
-              >
-                <ion-icon name="create-outline"></ion-icon>
-              </Link>
-            </button>
-          </td> */}
-          {/* <td>
-            <button
-              type="submit"
-              className="btn btn-outline-danger"
-              onClick={(e) => {
-                Delete(topic.id);
-              }}
             >
-              <ion-icon name="trash-outline"></ion-icon>
-            </button>
-          </td> */}
+              {topic.topic_Name}
+            </Link>
+          </td>
         </tr>
       </>
     );

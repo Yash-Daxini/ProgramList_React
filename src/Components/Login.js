@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 const Login = () => {
   const [login, setLogin] = useState({});
 
-  const naviagate = useNavigate();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if( sessionStorage.getItem("useName") === null ){
+      navigate("../login");
+    }
+  }, [navigate])
+  
 
   return (
     <div className="d-flex justify-content-center align-items-center w-100 my-5">
@@ -47,8 +53,9 @@ const Login = () => {
             onClickCapture={(e) => {
               e.preventDefault();
               if (login.name === "admin" && login.pass === "a") {
-                naviagate("../");
+                navigate("../");
               }
+              sessionStorage.setItem("useName",login.name);
             }}
           >
             Login

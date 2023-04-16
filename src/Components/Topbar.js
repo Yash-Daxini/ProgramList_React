@@ -1,7 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Topbar = () => {
+
+    const naviagate = useNavigate();
 
     const toggleMenu = ()=>{
         let toggle = document.querySelector('.toggle');
@@ -23,9 +25,12 @@ const Topbar = () => {
           <div class="name">ProgramList</div>
         </div>
         <div>
-          <Link class="logout">
+          <button class="logout btn border-0 text-primary" onClick={(e)=>{
+            sessionStorage.clear();
+            naviagate("./login");
+          }}>
             <ion-icon name="log-out-outline"></ion-icon>
-          </Link>
+          </button>
         </div>
         <div class="user">
           <ion-icon name="person-circle-outline"></ion-icon>

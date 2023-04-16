@@ -1,66 +1,53 @@
+import React from 'react';
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
-const SelectAll = () => {
-  
+
+const SelectAllUser = () => {
+
+  const [userObj, setUserObj] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     if( sessionStorage.getItem("useName") === null ){
-        navigate("../login");
+      navigate("../login");
     }
   }, [navigate])
-  
-  const [programObj, setProgramObj] = useState([]);
-
 
   useEffect(() => {
-    fetch("https://localhost:5001/api/MST_Program")
+    fetch("https://localhost:5001/api/SEC_User")
       .then((res) => {
         return res.json();
       })
       .then((data) => {
-        setProgramObj(data);
+        setUserObj(data);
       })
       .catch((e) => {});
-  }, [programObj]);
+  }, [userObj]);
 
   const Delete = (id) => {
-    fetch(`https://localhost:5001/api/MST_Program/${id}`, {
+    fetch(`https://localhost:5001/api/SEC_User/${id}`, {
       method: "DELETE",
     }).then((resp) => {
-      navigate("../SelectAll");
+      navigate("../SelectAllUser");
     });
   };
 
-  const allPrograms = programObj.map((program) => {
+  const allUser = userObj.map((user) => {
     return (
       <>
         <tr>
           <td>
-            <Link
-              to={"./SelectByID/" + program.id}
-              style={{ textDecoration: "none" }}
-            >
-              {program.program_Name}
-            </Link>
+              {user.user_Name}
           </td>
-          <td>{program.program_Topic}</td>
-          <td>
-            <Link to={program.program_Link} target="_blank">
-              <ion-icon name="link-outline"></ion-icon>
-            </Link>
-          </td>
-          <td>
-            <Link to={program.program_SolutionLink} target="_blank">
-              <ion-icon name="link-outline"></ion-icon>
-            </Link>
-          </td>
-          <td>{program.program_Difficulty}</td>
+          <td>{user.user_Password}</td>
+          <td>{user.user_EmailAddress}</td>
+          <td>{user.user_MobileNumber}</td>
           <td>
             <button className="btn btn-outline-info">
               <Link
-                to={"./UpdateByID/" + program.id}
+                to={"./UpdateByIDUser/" + user.id}
                 className="text-decoration-none"
               >
                 <ion-icon name="create-outline"></ion-icon>
@@ -72,7 +59,7 @@ const SelectAll = () => {
               type="submit"
               className="btn btn-outline-danger"
               onClick={(e) => {
-                Delete(program.id);
+                Delete(user.id);
               }}
             >
               <ion-icon name="trash-outline"></ion-icon>
@@ -91,20 +78,19 @@ const SelectAll = () => {
           <thead>
             <tr>
               <th scope="col">Name</th>
-              <th scope="col">Topic</th>
-              <th scope="col">Program Link</th>
-              <th scope="col">Solution Link</th>
-              <th scope="col">Difficulty</th>
+              <th scope="col">Password</th>
+              <th scope="col">Email Address</th>
+              <th scope="col">Mobile Number</th>
               <th scope="col" colSpan={2}>
                 Actions
               </th>
             </tr>
           </thead>
-          <tbody>{allPrograms}</tbody>
+          <tbody>{allUser}</tbody>
         </table>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SelectAll;
+export default SelectAllUser

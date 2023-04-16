@@ -34,9 +34,21 @@ const Sidebar = () => {
                     </Link>
                 </li>
                 <li>
+                    <Link class="" to="./SelectAllUser">
+                        <span class="icon"><ion-icon class="ion" name="location-outline"></ion-icon></span>
+                        <span class="title">SelectAll User</span>
+                    </Link>
+                </li>
+                <li>
                     <Link class="" to={"./Insert"}>
                         <span class="icon"><ion-icon class="ion" name="add-circle-outline"></ion-icon></span>
-                        <span class="title">Insert</span>
+                        <span class="title">Insert Program</span>
+                    </Link>
+                </li>
+                <li>
+                    <Link class="" to={"./InsertUser"}>
+                        <span class="icon"><ion-icon class="ion" name="add-circle-outline"></ion-icon></span>
+                        <span class="title">Insert User</span>
                     </Link>
                 </li>
                 {/* <li>

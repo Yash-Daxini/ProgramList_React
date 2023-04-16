@@ -1,45 +1,38 @@
-import { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
-const SelectAll = () => {
-  
+const SelectByTopicName = () => {
+
+  const params = useParams();
+
+  const [progams, setProgams] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     if( sessionStorage.getItem("useName") === null ){
-        navigate("../login");
+      navigate("../login");
     }
   }, [navigate])
-  
-  const [programObj, setProgramObj] = useState([]);
-
 
   useEffect(() => {
-    fetch("https://localhost:5001/api/MST_Program")
+    fetch(`https://localhost:5001/api/MST_Program/${params.id}/${params.name}`)
       .then((res) => {
         return res.json();
       })
       .then((data) => {
-        setProgramObj(data);
+        setProgams(data);
       })
       .catch((e) => {});
-  }, [programObj]);
+  }, [params.name,params.id])
 
-  const Delete = (id) => {
-    fetch(`https://localhost:5001/api/MST_Program/${id}`, {
-      method: "DELETE",
-    }).then((resp) => {
-      navigate("../SelectAll");
-    });
-  };
-
-  const allPrograms = programObj.map((program) => {
+  const allPrograms = progams.map((program) => {
     return (
       <>
         <tr>
           <td>
             <Link
-              to={"./SelectByID/" + program.id}
+              to={"../../../SelectAll/SelectByID/" + program.id}
               style={{ textDecoration: "none" }}
             >
               {program.program_Name}
@@ -57,35 +50,15 @@ const SelectAll = () => {
             </Link>
           </td>
           <td>{program.program_Difficulty}</td>
-          <td>
-            <button className="btn btn-outline-info">
-              <Link
-                to={"./UpdateByID/" + program.id}
-                className="text-decoration-none"
-              >
-                <ion-icon name="create-outline"></ion-icon>
-              </Link>
-            </button>
-          </td>
-          <td>
-            <button
-              type="submit"
-              className="btn btn-outline-danger"
-              onClick={(e) => {
-                Delete(program.id);
-              }}
-            >
-              <ion-icon name="trash-outline"></ion-icon>
-            </button>
-          </td>
         </tr>
       </>
     );
   });
+  
 
   return (
     <div className="selectAll main">
-      <h1>Programs</h1>
+      <h1>{params.name.toUpperCase()}</h1>
       <div>
         <table class="table">
           <thead>
@@ -95,16 +68,13 @@ const SelectAll = () => {
               <th scope="col">Program Link</th>
               <th scope="col">Solution Link</th>
               <th scope="col">Difficulty</th>
-              <th scope="col" colSpan={2}>
-                Actions
-              </th>
             </tr>
           </thead>
           <tbody>{allPrograms}</tbody>
         </table>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SelectAll;
+export default SelectByTopicName

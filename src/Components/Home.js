@@ -1,90 +1,78 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
 
-    let cardNumbers = document.querySelectorAll(".cardNumber");
-    let interval = 1000;
+  const navigate = useNavigate();
 
-    cardNumbers.forEach((cardNumber) =>{
-        let startValue = 0;
-        let endValue = parseInt( cardNumber.getAttribute("data-val" ));
-        let duration;
-        duration = Math.floor(interval / endValue);
-        let counter = setInterval(()=>{
-            startValue += 1;
-            cardNumber.textContent = startValue;
-            if (endValue === 0){
-                cardNumber.textContent = 0;
-                clearInterval(counter);
-            }
-            if( startValue === endValue ){
-                clearInterval(counter);
-            }
-        },duration);
-    })
+  useEffect(() => {
+    if( sessionStorage.getItem("useName") === null ){
+      navigate("./login");
+    }
+  }, [navigate])
+
+  let cardNumbers = document.querySelectorAll(".cardNumber");
+  let interval = 1000;
+
+  cardNumbers.forEach((cardNumber) => {
+    let startValue = 0;
+    let endValue = parseInt(cardNumber.getAttribute("data-val"));
+    let duration;
+    duration = Math.floor(interval / endValue);
+    let counter = setInterval(() => {
+      startValue += 1;
+      cardNumber.textContent = startValue;
+      if (endValue === 0) {
+        cardNumber.textContent = endValue;
+        clearInterval(counter);
+      }
+      if (startValue === endValue) {
+        clearInterval(counter);
+      }
+    }, duration);
+  });
+
+  const [topicAndCount, setTopicAndCount] = useState([]);
+
+  useEffect(() => {
+    fetch("https://localhost:5001/api/MST_Program/problemcount")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setTopicAndCount(data);
+      })
+      .catch((e) => {});
+  }, []);
+
+  let totalProgram = 0;
+
+  const cardsOfCount = topicAndCount.map((obj) => {
+    totalProgram += obj.program_Count;
+    return (
+      <div class="card">
+        <div>
+          <div class="cardNumber" data-val={obj.program_Count}>
+            {obj.program_Count}
+          </div>
+          <div class="cardName">{obj.topic_Name}</div>
+        </div>
+        <div class="cardIcon">
+          <ion-icon name="people-outline"></ion-icon>
+        </div>
+      </div>
+    );
+  });
 
   return (
     <div>
       <div class="cardBox">
+        {cardsOfCount}
         <div class="card">
           <div>
-            <div class="cardNumber" data-val="10">
-              10
-            </div>
-            <div class="cardName">Array</div>
-          </div>
-          <div class="cardIcon">
-            <ion-icon name="location-outline"></ion-icon>
-          </div>
-        </div>
-        <div class="card">
-          <div>
-            <div class="cardNumber" data-val="15">
-              15
-            </div>
-            <div class="cardName">Graph</div>
-          </div>
-          <div class="cardIcon">
-            <ion-icon name="location-outline"></ion-icon>
-          </div>
-        </div>
-        <div class="card">
-          <div>
-            <div class="cardNumber" data-val="20">
-              20
-            </div>
-            <div class="cardName">Tree</div>
-          </div>
-          <div class="cardIcon">
-            <ion-icon name="location-outline"></ion-icon>
-          </div>
-        </div>
-        <div class="card">
-          <div>
-            <div class="cardNumber" data-val="25">
-              14
-            </div>
-            <div class="cardName">Bit Manipulation</div>
-          </div>
-          <div class="cardIcon">
-            <ion-icon class="ion" name="copy-outline"></ion-icon>
-          </div>
-        </div>
-        <div class="card">
-          <div>
-            <div class="cardNumber" data-val="30">
-              12
-            </div>
-            <div class="cardName">Linked List</div>
-          </div>
-          <div class="cardIcon">
-            <ion-icon name="person-outline"></ion-icon>
-          </div>
-        </div>
-        <div class="card">
-          <div>
-            <div class="cardNumber" data-val="50">
-              50
+            <div class="cardNumber" data-val={totalProgram}>
+              {totalProgram}
             </div>
             <div class="cardName">Total Questions</div>
           </div>

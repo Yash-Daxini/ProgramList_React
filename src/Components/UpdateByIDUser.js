@@ -1,10 +1,11 @@
+import React from 'react';
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-const UpdateByID = () => {
-  const [newProgram, setNewProgram] = useState({});
+const UpdateByIDUser = () => {
+  const [newUser, setNewUser] = useState({});
 
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   const params = useParams();
 
@@ -15,12 +16,12 @@ const UpdateByID = () => {
   }, [navigate])
 
   useEffect(() => {
-    fetch("https://localhost:5001/api/MST_Program/" + params.id)
+    fetch("https://localhost:5001/api/SEC_User/" + params.id)
         .then((res) => {
             return res.json();
         })
         .then((data) => {
-            setNewProgram(data);
+            setNewUser(data);
         })
         .catch((e) => {
         })
@@ -30,94 +31,75 @@ const UpdateByID = () => {
     <div className="main my-5 mx-5 w-75">
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">
-          Program Name
+          User Name
         </label>
         <input
           type="text"
           class="form-control"
           id="exampleFormControlInput1"
-          placeholder="Program Name"
-          value={newProgram.program_Name}
+          placeholder="User Name"
+          value={newUser.user_Name}
           onChange={(e) => {
-            setNewProgram({ ...newProgram, program_Name: e.target.value });
+            setNewUser({ ...newUser, user_Name: e.target.value });
           }}
         />
       </div>
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">
-          Program Topic
+          Password
+        </label>
+        <input
+          type="password"
+          class="form-control"
+          id="exampleFormControlInput1"
+          placeholder="Password"
+          value={newUser.user_Password}
+          onChange={(e) => {
+            setNewUser({ ...newUser, user_Password: e.target.value });
+          }}
+        />
+      </div>
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">
+          Email Address
+        </label>
+        <input
+          type="email"
+          class="form-control"
+          id="exampleFormControlInput1"
+          placeholder="Email Address"
+          value={newUser.user_EmailAddress}
+          onChange={(e) => {
+            setNewUser({ ...newUser, user_EmailAddress: e.target.value });
+          }}
+        />
+      </div>
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">
+          Mobile Number
         </label>
         <input
           type="text"
           class="form-control"
           id="exampleFormControlInput1"
-          placeholder="Program Topic"
-          value={newProgram.program_Topic}
+          placeholder="Mobile Number"
+          value={newUser.user_MobileNumber}
           onChange={(e) => {
-            setNewProgram({ ...newProgram, program_Topic: e.target.value });
+            setNewUser({ ...newUser, user_MobileNumber: e.target.value });
           }}
         />
-      </div>
-      <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">
-          Program Link
-        </label>
-        <input
-          type="text"
-          class="form-control"
-          id="exampleFormControlInput1"
-          placeholder="Program Link"
-          value={newProgram.program_Link}
-          onChange={(e) => {
-            setNewProgram({ ...newProgram, program_Link: e.target.value });
-          }}
-        />
-      </div>
-      <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">
-          Solution Link
-        </label>
-        <input
-          type="text"
-          class="form-control"
-          id="exampleFormControlInput1"
-          placeholder="Solution Link"
-          value={newProgram.program_SolutionLink}
-          onChange={(e) => {
-            setNewProgram({ ...newProgram, program_SolutionLink: e.target.value });
-          }}
-        />
-      </div>
-      <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">
-          Difficulty
-        </label>
-        <select class="form-control" 
-        value={newProgram.program_Difficulty}
-        onChange={(e) => {
-          setNewProgram({
-            ...newProgram,
-            program_Difficulty: e.target.value,
-          });
-        }}
-        >
-          <option>Select Difficulty</option>
-          <option>Easy</option>
-          <option>Medium</option>
-          <option>Hard</option>
-        </select>
       </div>
       <div class="mb-3">
         <button type="submit" className="mx-5 btn btn-outline-success" 
           onClick={(e) => {
             e.preventDefault();
-            fetch(`https://localhost:5001/api/MST_Program/${params.id}`, {
+            fetch(`https://localhost:5001/api/SEC_User/${params.id}`, {
               method: "PUT",
               headers: { 
                   "Accept":"application/json",
                   "Content-type": "application/json" 
               },
-              body: JSON.stringify(newProgram),
+              body: JSON.stringify(newUser),
               })
               .then((r) => r.json())
               .then((res) => {
@@ -126,13 +108,12 @@ const UpdateByID = () => {
                 console.warn(e);
               })
   
-            setNewProgram({
-              ...newProgram,
-              program_Name: "",
-              program_Topic: "",
-              program_Link: "",
-              program_SolutionLink: "",
-              program_Difficulty: "",
+              setNewUser({
+              ...newUser,
+              user_Name: "",
+              user_EmailAddress: "",
+              user_MobileNumber: "",
+              user_Password: ""
             });
           }}
         >
@@ -148,6 +129,6 @@ const UpdateByID = () => {
       </div>
     </div>
   );
-};
+}
 
-export default UpdateByID;
+export default UpdateByIDUser

@@ -1,10 +1,18 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const SelectByID = () => {
   const [programObj, setProgramObj] = useState([]);
 
   const params = useParams();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if( sessionStorage.getItem("useName") === null ){
+      navigate("../login");
+    }
+  }, [navigate])
 
   useEffect(() => {
     fetch("https://localhost:5001/api/MST_Program/" + params.id)
