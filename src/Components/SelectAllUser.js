@@ -1,19 +1,17 @@
-import React from 'react';
+import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
-
 const SelectAllUser = () => {
-
   const [userObj, setUserObj] = useState([]);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if( sessionStorage.getItem("useName") === null ){
+    if (sessionStorage.getItem("useName") === null) {
       navigate("../login");
     }
-  }, [navigate])
+  }, [navigate]);
 
   useEffect(() => {
     fetch("https://localhost:5001/api/SEC_User")
@@ -38,9 +36,7 @@ const SelectAllUser = () => {
     return (
       <>
         <tr>
-          <td>
-              {user.user_Name}
-          </td>
+          <td>{user.user_Name}</td>
           <td>{user.user_Password}</td>
           <td>{user.user_EmailAddress}</td>
           <td>{user.user_MobileNumber}</td>
@@ -72,7 +68,16 @@ const SelectAllUser = () => {
 
   return (
     <div className="selectAll main">
-      <h1>Programs</h1>
+      <div className="d-flex justify-content-between">
+        <div>
+          <h1>Programs</h1>
+        </div>
+        <div>
+          <Link className="successBtn rounded-3" to={"../InsertUser"}>
+            <ion-icon name="add-outline"></ion-icon>
+          </Link>
+        </div>
+      </div>
       <div>
         <table class="table">
           <thead>
@@ -90,7 +95,7 @@ const SelectAllUser = () => {
         </table>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SelectAllUser
+export default SelectAllUser;

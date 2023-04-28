@@ -16,7 +16,7 @@ const SelectByTopicName = () => {
   }, [navigate])
 
   useEffect(() => {
-    fetch(`https://localhost:5001/api/MST_Program/${params.id}/${params.name}`)
+    fetch(`https://localhost:5001/api/MST_Program/programsByTopicName/${params.name}`)
       .then((res) => {
         return res.json();
       })

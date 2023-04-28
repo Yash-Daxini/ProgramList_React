@@ -1,18 +1,17 @@
-import React from 'react';
+import React from "react";
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 
 const SelectAllTopic = () => {
-
   const [topicObj, setTopicObj] = useState([]);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if( sessionStorage.getItem("useName") === null ){
+    if (sessionStorage.getItem("useName") === null) {
       navigate("../login");
     }
-  }, [navigate])
+  }, [navigate]);
 
   useEffect(() => {
     fetch("https://localhost:5001/api/MST_ProgramTopic")
@@ -31,7 +30,7 @@ const SelectAllTopic = () => {
         <tr>
           <td>
             <Link
-              to={"./SelectByTopicName/"+ topic.id + "/" +topic.topic_Name}
+              to={"./SelectByTopicName/" + topic.id + "/" + topic.topic_Name}
               style={{ textDecoration: "none" }}
             >
               {topic.topic_Name}
@@ -42,22 +41,25 @@ const SelectAllTopic = () => {
     );
   });
 
-
   return (
     <div className="selectAll main">
-    <h1>Topics</h1>
-    <div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-          </tr>
-        </thead>
-        <tbody>{allTopics}</tbody>
-      </table>
+      <div className="d-flex justify-content-between">
+        <div>
+          <h1>Topics</h1>
+        </div>
+      </div>
+      <div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+            </tr>
+          </thead>
+          <tbody>{allTopics}</tbody>
+        </table>
+      </div>
     </div>
-  </div>
-  )
-}
+  );
+};
 
-export default SelectAllTopic
+export default SelectAllTopic;

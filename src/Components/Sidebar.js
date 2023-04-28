@@ -23,34 +23,34 @@ const Sidebar = () => {
                 </li>
                 <li>
                     <Link class="" to="./SelectAll">
-                        <span class="icon"><ion-icon class="ion" name="location-outline"></ion-icon></span>
-                        <span class="title">SelectAll</span>
+                        <span class="icon"><ion-icon class="ion"  name="code-outline"></ion-icon></span>
+                        <span class="title">Programs</span>
                     </Link>
                 </li>
                 <li>
                     <Link class="" to="./SelectAllTopic">
-                        <span class="icon"><ion-icon class="ion" name="location-outline"></ion-icon></span>
-                        <span class="title">SelectAll Topics</span>
+                        <span class="icon"><ion-icon class="ion"  name="podium-outline"></ion-icon></span>
+                        <span class="title">Topics</span>
                     </Link>
                 </li>
                 <li>
                     <Link class="" to="./SelectAllUser">
-                        <span class="icon"><ion-icon class="ion" name="location-outline"></ion-icon></span>
-                        <span class="title">SelectAll User</span>
+                        <span class="icon"><ion-icon class="ion" name="people-outline"></ion-icon></span>
+                        <span class="title">Users</span>
                     </Link>
                 </li>
-                <li>
+                {/* <li>
                     <Link class="" to={"./Insert"}>
                         <span class="icon"><ion-icon class="ion" name="add-circle-outline"></ion-icon></span>
                         <span class="title">Insert Program</span>
                     </Link>
-                </li>
-                <li>
+                </li> */}
+                {/* <li>
                     <Link class="" to={"./InsertUser"}>
                         <span class="icon"><ion-icon class="ion" name="add-circle-outline"></ion-icon></span>
                         <span class="title">Insert User</span>
                     </Link>
-                </li>
+                </li> */}
                 {/* <li>
                     <a class="" asp-area="LOC_City" asp-controller="Home" asp-action="Index">
                         <span class="icon"><ion-icon class="ion" name="location-outline"></ion-icon></span>

@@ -56,29 +56,29 @@ const Home = () => {
           <div class="cardNumber" data-val={obj.program_Count}>
             {obj.program_Count}
           </div>
+        </div>
+        {/* <div class="cardIcon"> */}
+          {/* <ion-icon name="people-outline"></ion-icon> */}
           <div class="cardName">{obj.topic_Name}</div>
-        </div>
-        <div class="cardIcon">
-          <ion-icon name="people-outline"></ion-icon>
-        </div>
+        {/* </div> */}
       </div>
     );
   });
 
   return (
     <div>
-      <div class="cardBox">
+      <div class="cardBox text-center">
         {cardsOfCount}
         <div class="card">
           <div>
             <div class="cardNumber" data-val={totalProgram}>
               {totalProgram}
             </div>
+          </div>
+          {/* <div class="cardIcon"> */}
             <div class="cardName">Total Questions</div>
-          </div>
-          <div class="cardIcon">
-            <ion-icon name="people-outline"></ion-icon>
-          </div>
+            {/* <ion-icon name="people-outline"></ion-icon> */}
+          {/* </div> */}
         </div>
       </div>
       <div class="homePart">
