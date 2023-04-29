@@ -9,7 +9,7 @@ const SelectByID = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if( sessionStorage.getItem("useName") === null ){
+    if( sessionStorage.getItem("user") === null ){
       navigate("../login");
     }
   }, [navigate])

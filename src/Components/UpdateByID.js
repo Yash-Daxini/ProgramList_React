@@ -9,7 +9,7 @@ const UpdateByID = () => {
   const params = useParams();
 
   useEffect(() => {
-    if( sessionStorage.getItem("useName") === null ){
+    if( sessionStorage.getItem("user") === null ){
       navigate("../login");
     }
   }, [navigate])

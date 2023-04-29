@@ -10,7 +10,7 @@ const SelectByTopicName = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if( sessionStorage.getItem("useName") === null ){
+    if( sessionStorage.getItem("user") === null ){
       navigate("../login");
     }
   }, [navigate])
@@ -58,7 +58,7 @@ const SelectByTopicName = () => {
 
   return (
     <div className="selectAll main">
-      <h1>{params.name.toUpperCase()}</h1>
+      <h1 style={{textTransform:"capitalize"}}>{params.name}</h1>
       <div>
         <table class="table">
           <thead>

@@ -11,7 +11,7 @@ const SelectAll = () => {
   });
 
   useEffect(() => {
-    if (sessionStorage.getItem("useName") === null) {
+    if (sessionStorage.getItem("user") === null) {
       navigate("../login");
     }
   }, [navigate]);
@@ -154,14 +154,6 @@ const SelectAll = () => {
             <option>Medium</option>
             <option>Hard</option>
           </select>
-          {/* <button
-            className="btn btn-outline-success m-2 h-75"
-            onClick={(e) => {
-              fetchUsingFilter();
-            }}
-          >
-            Search
-          </button> */}
         </div>
         <div>
           <Link className="successAddBtn rounded-3 m-2" to={"../Insert"}>
@@ -183,7 +175,17 @@ const SelectAll = () => {
               </th>
             </tr>
           </thead>
-          <tbody>{allPrograms}</tbody>
+          {allPrograms.length === 0 ? (
+            <tbody>
+              <tr>
+                <td colSpan={6}>
+                  <h3>No match found</h3>
+                </td>
+              </tr>
+            </tbody>
+          ) : (
+            <tbody>{allPrograms}</tbody>
+          )}
         </table>
       </div>
     </div>

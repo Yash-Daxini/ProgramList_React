@@ -8,7 +8,7 @@ const SelectAllTopic = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (sessionStorage.getItem("useName") === null) {
+    if (sessionStorage.getItem("user") === null) {
       navigate("../login");
     }
   }, [navigate]);
@@ -30,7 +30,7 @@ const SelectAllTopic = () => {
         <tr>
           <td>
             <Link
-              to={"./SelectByTopicName/" + topic.id + "/" + topic.topic_Name}
+              to={"./SelectByTopicName/"+ topic.topic_Name}
               style={{ textDecoration: "none" }}
             >
               {topic.topic_Name}

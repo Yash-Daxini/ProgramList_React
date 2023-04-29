@@ -3,14 +3,25 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-
   const navigate = useNavigate();
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    if( sessionStorage.getItem("useName") === null ){
+    fetch("https://localhost:5001/api/SEC_User")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setUsers(data);
+      })
+      .catch((e) => {});
+  }, []);
+
+  useEffect(() => {
+    if (sessionStorage.getItem("user") === null) {
       navigate("./login");
     }
-  }, [navigate])
+  }, [navigate]);
 
   let cardNumbers = document.querySelectorAll(".cardNumber");
   let interval = 1000;
@@ -48,6 +59,21 @@ const Home = () => {
 
   let totalProgram = 0;
 
+  const dispayAdminUser = users.map((user) => {
+    return (
+      <>
+        <tr>
+          <td>
+            <span>
+            <ion-icon name="person-outline" className="ion"></ion-icon>
+            </span>
+          </td>
+          <td>{user.user_Name}</td>
+        </tr>
+      </>
+    );
+  });
+
   const cardsOfCount = topicAndCount.map((obj) => {
     totalProgram += obj.program_Count;
     return (
@@ -57,10 +83,7 @@ const Home = () => {
             {obj.program_Count}
           </div>
         </div>
-        {/* <div class="cardIcon"> */}
-          {/* <ion-icon name="people-outline"></ion-icon> */}
-          <div class="cardName">{obj.topic_Name}</div>
-        {/* </div> */}
+        <div class="cardName">{obj.topic_Name}</div>
       </div>
     );
   });
@@ -75,15 +98,12 @@ const Home = () => {
               {totalProgram}
             </div>
           </div>
-          {/* <div class="cardIcon"> */}
-            <div class="cardName">Total Questions</div>
-            {/* <ion-icon name="people-outline"></ion-icon> */}
-          {/* </div> */}
+          <div class="cardName">Total Questions</div>
         </div>
       </div>
       <div class="homePart">
         <div class="userFeedback">
-          <h4>User Ratings</h4>
+          <h4>Login User Inforamation</h4>
           <table
             class="table text-center my-3"
             cellpadding="40px"
@@ -91,32 +111,18 @@ const Home = () => {
           >
             <thead>
               <tr>
-                <th scope="col">User</th>
-                <th scope="col">Rating</th>
+                <th scope="col">User Name</th>
+                <th scope="col">User Email</th>
+                <th scope="col">User Mobile Number</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Yash Daxini</td>
-                <td>
-                  <span>
-                    <ion-icon name="star" class="star"></ion-icon>
-                  </span>
-                  <span>
-                    <ion-icon name="star" class="star"></ion-icon>
-                  </span>
-                  <span>
-                    <ion-icon name="star" class="star"></ion-icon>
-                  </span>
-                  <span>
-                    <ion-icon name="star" class="star"></ion-icon>
-                  </span>
-                  <span>
-                    <ion-icon name="star" class="star"></ion-icon>
-                  </span>
-                </td>
+                <td>{JSON.parse(sessionStorage.getItem("user")).user_Name}</td>
+                <td>{JSON.parse(sessionStorage.getItem("user")).user_EmailAddress}</td>
+                <td>{JSON.parse(sessionStorage.getItem("user")).user_MobileNumber}</td>
               </tr>
-              <tr>
+              {/* <tr>
                 <td>Allan Smith</td>
                 <td>
                   <span>
@@ -172,12 +178,12 @@ const Home = () => {
                     <ion-icon name="star" class="star"></ion-icon>
                   </span>
                 </td>
-              </tr>
+              </tr> */}
             </tbody>
           </table>
         </div>
         <div class="recentUser">
-          <h4>Recent User</h4>
+          <h4>Recent Admin User</h4>
           <table
             class="table text-center my-3"
             cellpadding="40px"
@@ -190,15 +196,8 @@ const Home = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>
-                  <span>
-                    <ion-icon class="text-info" name="person"></ion-icon>
-                  </span>
-                </td>
-                <td>Yash Daxini</td>
-              </tr>
-              <tr>
+              {dispayAdminUser}
+              {/* <tr>
                 <td>
                   <span>
                     <ion-icon class="text-warning" name="person"></ion-icon>
@@ -221,7 +220,7 @@ const Home = () => {
                   </span>
                 </td>
                 <td>Darshan Uni.</td>
-              </tr>
+              </tr> */}
             </tbody>
           </table>
         </div>
