@@ -73,7 +73,7 @@ const SelectAllUser = () => {
           <h1>Programs</h1>
         </div>
         <div>
-          <Link className="successBtn rounded-3" to={"../InsertUser"}>
+          <Link className="successAddBtn rounded-3 m-2" to={"../InsertUser"}>
             <ion-icon name="add-outline"></ion-icon>
           </Link>
         </div>
