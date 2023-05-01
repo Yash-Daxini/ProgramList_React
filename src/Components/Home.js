@@ -7,6 +7,12 @@ const Home = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
+    if (sessionStorage.getItem("user") == null) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
+  useEffect(() => {
     fetch("https://localhost:5001/api/SEC_User")
       .then((res) => {
         return res.json();
@@ -16,12 +22,6 @@ const Home = () => {
       })
       .catch((e) => {});
   }, []);
-
-  useEffect(() => {
-    if (sessionStorage.getItem("user") === null) {
-      navigate("./login");
-    }
-  }, [navigate]);
 
   let cardNumbers = document.querySelectorAll(".cardNumber");
   let interval = 1000;
@@ -65,7 +65,7 @@ const Home = () => {
         <tr>
           <td>
             <span>
-            <ion-icon name="person-outline" className="ion"></ion-icon>
+              <ion-icon name="person-outline" className="ion"></ion-icon>
             </span>
           </td>
           <td>{user.user_Name}</td>
@@ -118,9 +118,27 @@ const Home = () => {
             </thead>
             <tbody>
               <tr>
-                <td>{JSON.parse(sessionStorage.getItem("user")).user_Name}</td>
-                <td>{JSON.parse(sessionStorage.getItem("user")).user_EmailAddress}</td>
-                <td>{JSON.parse(sessionStorage.getItem("user")).user_MobileNumber}</td>
+                {sessionStorage.getItem("user") === null ? (
+                  <td></td>
+                ) : (
+                  <>
+                    <td>
+                      {JSON.parse(sessionStorage.getItem("user")).user_Name}
+                    </td>
+                    <td>
+                      {
+                        JSON.parse(sessionStorage.getItem("user"))
+                          .user_EmailAddress
+                      }
+                    </td>
+                    <td>
+                      {
+                        JSON.parse(sessionStorage.getItem("user"))
+                          .user_MobileNumber
+                      }
+                    </td>
+                  </>
+                )}
               </tr>
               {/* <tr>
                 <td>Allan Smith</td>
