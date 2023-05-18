@@ -22,13 +22,16 @@ const SelectAllUser = () => {
         setUserObj(data);
       })
       .catch((e) => {});
-  }, [userObj]);
+  }, []);
 
   const Delete = (id) => {
     fetch(`https://localhost:5001/api/SEC_User/${id}`, {
       method: "DELETE",
     }).then((resp) => {
-      navigate("../SelectAllUser");
+      navigate("../");
+      setTimeout(() => {
+        navigate("../SelectAllUser");
+      }, 0.01);
     });
   };
 

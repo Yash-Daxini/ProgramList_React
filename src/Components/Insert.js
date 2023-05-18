@@ -4,13 +4,39 @@ import { useNavigate } from "react-router-dom";
 const Insert = () => {
   const [newProgram, setNewProgram] = useState({});
 
+  const [topicObj, setTopicObj] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    if( sessionStorage.getItem("user") === null ){
+    if (sessionStorage.getItem("user") === null) {
       navigate("../login");
     }
-  }, [navigate])
+  }, [navigate]);
+
+  useEffect(() => {
+    fetch("https://localhost:5001/api/MST_ProgramTopic")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setTopicObj(data);
+      })
+      .catch((e) => {});
+  }, []);
+
+  const selectionList = topicObj.map((topic) => {
+    return (
+      <>
+        <option
+          value={topic.topic_Name}
+          style={{ textTransform: "capitalize" }}
+        >
+          {topic.topic_Name}
+        </option>
+      </>
+    );
+  });
 
   return (
     <div className="main my-5 mx-5 w-75">
@@ -19,6 +45,7 @@ const Insert = () => {
           Program Name
         </label>
         <input
+          required
           type="text"
           class="form-control"
           id="exampleFormControlInput1"
@@ -33,22 +60,50 @@ const Insert = () => {
         <label for="exampleFormControlInput1" class="form-label">
           Program Topic
         </label>
+        <select
+          required
+          className="form-control"
+          id="selectionBoxForTopic"
+          value={newProgram.program_Topic}
+          style={{display:""}}
+          onChange={(e) => {
+            setNewProgram({ ...newProgram, program_Topic: e.target.value });
+          }}
+        >
+          <option>Select Topic Name</option>
+          {selectionList}
+        </select>
         <input
+          required
           type="text"
           class="form-control"
-          id="exampleFormControlInput1"
+          id="textBoxForTopic"
+          style={{display:"none"}}
           placeholder="Program Topic"
           value={newProgram.program_Topic}
           onChange={(e) => {
             setNewProgram({ ...newProgram, program_Topic: e.target.value });
           }}
         />
+        <input type="button" className="btn btn-outline-primary my-2" value={"Not Present in list ? Want to add new topic !"} onClick={(e)=>{
+          if( document.getElementById("selectionBoxForTopic").style.display === "none" ){
+            document.getElementById("selectionBoxForTopic").style.display = "";
+            document.getElementById("textBoxForTopic").style.display = "none";
+            e.target.value = "Not Present in list ? Want to add new topic !"
+          }
+          else{
+            document.getElementById("selectionBoxForTopic").style.display = "none";
+            document.getElementById("textBoxForTopic").style.display = "";
+            e.target.value = "Want to select from list ? "
+          }
+        }}></input>
       </div>
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">
           Program Link
         </label>
         <input
+          required
           type="text"
           class="form-control"
           id="exampleFormControlInput1"
@@ -64,6 +119,7 @@ const Insert = () => {
           Solution Link
         </label>
         <input
+          required
           type="text"
           class="form-control"
           id="exampleFormControlInput1"
@@ -81,25 +137,9 @@ const Insert = () => {
         <label for="exampleFormControlInput1" class="form-label">
           Difficulty
         </label>
-        <select class="form-control" 
-        value={newProgram.program_Difficulty}
-        onChange={(e) => {
-          setNewProgram({
-            ...newProgram,
-            program_Difficulty: e.target.value,
-          });
-        }}
-        >
-          <option>Select Difficulty</option>
-          <option>Easy</option>
-          <option>Medium</option>
-          <option>Hard</option>
-        </select>
-        {/* <input
-          type="text"
+        <select
+          required
           class="form-control"
-          id="exampleFormControlInput1"
-          placeholder="Difficulty"
           value={newProgram.program_Difficulty}
           onChange={(e) => {
             setNewProgram({
@@ -107,7 +147,12 @@ const Insert = () => {
               program_Difficulty: e.target.value,
             });
           }}
-        /> */}
+        >
+          <option>Select Difficulty</option>
+          <option>Easy</option>
+          <option>Medium</option>
+          <option>Hard</option>
+        </select>
       </div>
       <div class="mb-3">
         <button
@@ -128,7 +173,6 @@ const Insert = () => {
               .catch((e) => {
                 console.warn(e);
               });
-            // console.warn(newStudent);
 
             setNewProgram({
               ...newProgram,
@@ -146,7 +190,7 @@ const Insert = () => {
           type="submit"
           className="btn btn-outline-danger"
           onClick={(e) => {
-            navigate("./../../");
+            navigate("../SelectAll");
           }}
         >
           Cancel

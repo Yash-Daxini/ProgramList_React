@@ -108,7 +108,7 @@ const InsertUser = () => {
         </button>
         <button type="submit" className="btn btn-outline-danger"
          onClick={(e)=>{
-            navigate("./../../");
+            navigate("../SelectAllUser");
          }}
         >
           Cancel

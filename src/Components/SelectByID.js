@@ -26,36 +26,52 @@ const SelectByID = () => {
   }, [params.id]);
 
   return (
-    <div className="d-flex justify-content-center align-items-center my-5">
-      <div class="card">
-        <div class="card-body">
-          <h2 class="card-title">{programObj.program_Name}</h2>
-          <h5>
-            {programObj.issolved ? (
-              <span className="text-success">
-                {" "}
-                <ion-icon name="checkmark-circle-sharp"></ion-icon>{" "}
-              </span>
-            ) : (
-              <span></span>
-            )}
-          </h5>
-          <h3>Topic : {programObj.program_Topic} </h3>
-          <h3> Difficulty : {programObj.program_Difficulty} </h3>
-          <h3>
-            <Link to={programObj.program_Link} className="text-decoration-none">
-              Solve Here{" "}
-            </Link>
-          </h3>
-          <h3>
-            <Link
-              to={programObj.program_SolutionLink}
-              className="text-decoration-none"
-            >
-              See Solution{" "}
-            </Link>
-          </h3>
-        </div>
+    <div className="align-items-center my-5">
+      <h1 className="my-5">{programObj.program_Name}</h1>
+      {/* <h5>
+        {programObj.issolved ? (
+          <span className="text-success">
+            {" "}
+            <ion-icon name="checkmark-circle-sharp"></ion-icon>{" "}
+          </span>
+        ) : (
+          <span></span>
+        )}
+      </h5> */}
+      <div className="my-5 d-flex justify-content-center align-items-center flex-column">
+        <h4 style={{textTransform:"capitalize"}}>Topic : {programObj.program_Topic} </h4>
+        <hr/>
+        {programObj.program_Difficulty === "Easy" ? (
+            <h4 className="customBadgeSuccess">
+              <span className="fs-6">{programObj.program_Difficulty}</span>
+            </h4>
+          ) : programObj.program_Difficulty === "Medium" ? (
+            <h4 className="customBadgeWarning">
+              <span className="fs-6">{programObj.program_Difficulty}</span>
+            </h4>
+          ) : (
+            <h4 className="customBadgeDanger">
+              <span className="fs-6">{programObj.program_Difficulty}</span>
+            </h4>
+          )}
+      </div>
+      <div className="my-5 d-flex justify-content-center align-items-center">
+        <button className="btn btn-outline-primary mx-5">
+          <Link
+            to={programObj.program_Link}
+            className="text-decoration-none text-dark"
+          >
+            Solve Here{" "}
+          </Link>
+        </button>
+        <button className="btn btn-outline-primary mx-5">
+          <Link
+            to={programObj.program_SolutionLink}
+            className="text-decoration-none text-dark"
+          >
+            See Solution{" "}
+          </Link>
+        </button>
       </div>
     </div>
   );

@@ -58,7 +58,10 @@ const SelectAll = () => {
     fetch(`https://localhost:5001/api/MST_Program/${id}`, {
       method: "DELETE",
     }).then((resp) => {
-      navigate("../SelectAll");
+      navigate("../");
+      setTimeout(() => {
+        navigate("../SelectAll");
+      }, 0.01);
     });
   };
 
