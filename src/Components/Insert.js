@@ -65,7 +65,7 @@ const Insert = () => {
           className="form-control"
           id="selectionBoxForTopic"
           value={newProgram.program_Topic}
-          style={{display:""}}
+          style={{ display: "" }}
           onChange={(e) => {
             setNewProgram({ ...newProgram, program_Topic: e.target.value });
           }}
@@ -78,25 +78,34 @@ const Insert = () => {
           type="text"
           class="form-control"
           id="textBoxForTopic"
-          style={{display:"none"}}
+          style={{ display: "none" }}
           placeholder="Program Topic"
           value={newProgram.program_Topic}
           onChange={(e) => {
             setNewProgram({ ...newProgram, program_Topic: e.target.value });
           }}
         />
-        <input type="button" className="btn btn-outline-primary my-2" value={"Not Present in list ? Want to add new topic !"} onClick={(e)=>{
-          if( document.getElementById("selectionBoxForTopic").style.display === "none" ){
-            document.getElementById("selectionBoxForTopic").style.display = "";
-            document.getElementById("textBoxForTopic").style.display = "none";
-            e.target.value = "Not Present in list ? Want to add new topic !"
-          }
-          else{
-            document.getElementById("selectionBoxForTopic").style.display = "none";
-            document.getElementById("textBoxForTopic").style.display = "";
-            e.target.value = "Want to select from list ? "
-          }
-        }}></input>
+        <input
+          type="button"
+          className="btn btn-outline-primary my-2"
+          value={"Not Present in list ? Want to add new topic !"}
+          onClick={(e) => {
+            if (
+              document.getElementById("selectionBoxForTopic").style.display ===
+              "none"
+            ) {
+              document.getElementById("selectionBoxForTopic").style.display =
+                "";
+              document.getElementById("textBoxForTopic").style.display = "none";
+              e.target.value = "Not Present in list ? Want to add new topic !";
+            } else {
+              document.getElementById("selectionBoxForTopic").style.display =
+                "none";
+              document.getElementById("textBoxForTopic").style.display = "";
+              e.target.value = "Want to select from list ? ";
+            }
+          }}
+        ></input>
       </div>
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">
@@ -159,7 +168,19 @@ const Insert = () => {
           type="submit"
           className="mx-5 btn btn-outline-success"
           onClick={(e) => {
-            e.preventDefault();
+            console.warn(newProgram.program_Topic);
+            if (
+              newProgram.program_Name === undefined ||
+              newProgram.program_Topic === undefined ||
+              newProgram.program_Topic === "Select Topic Name" ||
+              newProgram.program_Link === undefined ||
+              newProgram.program_SolutionLink === undefined ||
+              newProgram.program_Difficulty === undefined
+            ){
+              alert('Please enter all details');
+              return;
+            }
+              e.preventDefault();
             fetch("https://localhost:5001/api/MST_Program", {
               method: "POST",
               headers: {
