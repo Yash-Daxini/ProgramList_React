@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 const UpdateByIDUser = () => {
   const [newUser, setNewUser] = useState({});
@@ -93,6 +94,24 @@ const UpdateByIDUser = () => {
         <button type="submit" className="mx-5 btn btn-outline-success" 
           onClick={(e) => {
             e.preventDefault();
+            if (
+              newUser.user_Name === undefined ||
+              newUser.user_EmailAddress === undefined ||
+              newUser.user_MobileNumber === undefined ||
+              newUser.user_Password === undefined ||
+              newUser.user_Name === "" ||
+              newUser.user_EmailAddress === "" ||
+              newUser.user_MobileNumber === "" ||
+              newUser.user_Password === ""
+            ){
+              Swal.fire({
+                title: 'Error!',
+                text: 'All fields are not fullfilled',
+                icon: 'error',
+                confirmButtonText: "Ok"
+              })
+              return;
+            }
             fetch(`https://localhost:5001/api/SEC_User/${params.id}`, {
               method: "PUT",
               headers: { 

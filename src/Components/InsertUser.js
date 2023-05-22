@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 const InsertUser = () => {
-  
   const [newUser, setNewUser] = useState({});
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if( sessionStorage.getItem("user") === null ){
+    if (sessionStorage.getItem("user") === null) {
       navigate("../login");
     }
-  }, [navigate])
+  }, [navigate]);
 
   return (
     <div className="main my-5 mx-5 w-75">
@@ -77,45 +77,80 @@ const InsertUser = () => {
         />
       </div>
       <div class="mb-3">
-        <button type="submit" className="mx-5 btn btn-outline-success" 
+        <button
+          type="submit"
+          className="mx-5 btn btn-outline-success"
           onClick={(e) => {
             e.preventDefault();
+            if (
+              newUser.user_Name === undefined ||
+              newUser.user_EmailAddress === undefined ||
+              newUser.user_MobileNumber === undefined ||
+              newUser.user_Password === undefined ||
+              newUser.user_Name === "" ||
+              newUser.user_EmailAddress === "" ||
+              newUser.user_MobileNumber === "" ||
+              newUser.user_Password === ""
+            ){
+              Swal.fire({
+                title: 'Error!',
+                text: 'All fields are not fullfilled',
+                icon: 'error',
+                confirmButtonText: "Ok"
+              })
+              return;
+            }
             fetch(`https://localhost:5001/api/SEC_User/`, {
               method: "POST",
-              headers: { 
-                  "Accept":"application/json",
-                  "Content-type": "application/json" 
+              headers: {
+                Accept: "application/json",
+                "Content-type": "application/json",
               },
               body: JSON.stringify(newUser),
-              })
+            })
               .then((r) => r.json())
               .then((res) => {
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Data Inserted Successfully!",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
               })
-              .catch((e)=>{
-                console.warn(e);
-              })
-  
-              setNewUser({
+              .catch((e) => {
+                Swal.fire({
+                  position: "top-end",
+                  icon: "error",
+                  title: "Some Error Occured!",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              });
+
+            setNewUser({
               ...newUser,
               user_Name: "",
               user_EmailAddress: "",
               user_MobileNumber: "",
-              user_Password: ""
+              user_Password: "",
             });
           }}
         >
           Add
         </button>
-        <button type="submit" className="btn btn-outline-danger"
-         onClick={(e)=>{
+        <button
+          type="submit"
+          className="btn btn-outline-danger"
+          onClick={(e) => {
             navigate("../SelectAllUser");
-         }}
+          }}
         >
           Cancel
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default InsertUser
+export default InsertUser;

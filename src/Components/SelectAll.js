@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 const SelectAll = () => {
   const navigate = useNavigate();
@@ -60,6 +61,13 @@ const SelectAll = () => {
     }).then((resp) => {
       navigate("../");
       setTimeout(() => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Data Deleted Successfully!',
+          showConfirmButton: false,
+          timer: 1500
+        })
         navigate("../SelectAll");
       }, 0.01);
     });

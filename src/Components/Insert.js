@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 const Insert = () => {
   const [newProgram, setNewProgram] = useState({});
@@ -168,19 +169,25 @@ const Insert = () => {
           type="submit"
           className="mx-5 btn btn-outline-success"
           onClick={(e) => {
-            console.warn(newProgram.program_Topic);
+            e.preventDefault();
             if (
               newProgram.program_Name === undefined ||
               newProgram.program_Topic === undefined ||
               newProgram.program_Topic === "Select Topic Name" ||
+              newProgram.program_Topic === "" ||
               newProgram.program_Link === undefined ||
               newProgram.program_SolutionLink === undefined ||
-              newProgram.program_Difficulty === undefined
+              newProgram.program_Difficulty === undefined ||
+              newProgram.program_Difficulty === "Select Difficulty"
             ){
-              alert('Please enter all details');
+              Swal.fire({
+                title: 'Error!',
+                text: 'All fields are not fullfilled',
+                icon: 'error',
+                confirmButtonText: "Ok"
+              })
               return;
             }
-              e.preventDefault();
             fetch("https://localhost:5001/api/MST_Program", {
               method: "POST",
               headers: {
@@ -190,9 +197,23 @@ const Insert = () => {
               body: JSON.stringify(newProgram),
             })
               .then((r) => r.json())
-              .then((res) => {})
+              .then((res) => {
+                Swal.fire({
+                  position: 'top-end',
+                  icon: 'success',
+                  title: 'Data Inserted Successfully!',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+              })
               .catch((e) => {
-                console.warn(e);
+                Swal.fire({
+                  position: 'top-end',
+                  icon: 'error',
+                  title: 'Some Error Occured!',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
               });
 
             setNewProgram({
