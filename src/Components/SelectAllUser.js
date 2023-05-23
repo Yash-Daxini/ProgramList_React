@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 const SelectAllUser = () => {
   const [userObj, setUserObj] = useState([]);
@@ -28,19 +28,29 @@ const SelectAllUser = () => {
   const Delete = (id) => {
     fetch(`https://localhost:5001/api/SEC_User/${id}`, {
       method: "DELETE",
-    }).then((resp) => {
-      navigate("../");
-      setTimeout(() => {
+    })
+      .then((resp) => {
         Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Data Deleted Successfully!',
+          position: "top-end",
+          icon: "success",
+          title: "Data Deleted Successfully!",
           showConfirmButton: false,
-          timer: 1500
-        })
-        navigate("../SelectAllUser");
-      }, 0.01);
-    });
+          timer: 1500,
+        });
+        navigate("../");
+        setTimeout(() => {
+          navigate("../SelectAllUser");
+        }, 0.01);
+      })
+      .catch((e) => {
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: "Some error occured!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      });
   };
 
   const allUser = userObj.map((user) => {
@@ -66,7 +76,19 @@ const SelectAllUser = () => {
               type="submit"
               className="btn btn-outline-danger"
               onClick={(e) => {
-                Delete(user.id);
+                Swal.fire({
+                  title: "Are you sure?",
+                  text: "It will deleted permanently!",
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: "Yes, delete it!",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    Delete(user.id);
+                  }
+                });
               }}
             >
               <ion-icon name="trash-outline"></ion-icon>
