@@ -24,11 +24,11 @@ const Login = () => {
 
   return (
     <div className="backgroundColorBlue login">
-      <div className="container mb-2">
+      <div className="container">
         <div className="text-center">
-          <h2 className="mb-5">Program List</h2>
+          <h2 className="py-3">Program List</h2>
         </div>
-        <div className="content my-3 container backgroundColorBlueLite w-50">
+        <div className="content container backgroundColorBlueLite">
           <div
             class="alert alert-danger"
             id="loginAlert"
@@ -37,8 +37,8 @@ const Login = () => {
           >
             <strong>Alert!</strong> Invalid User Name or Password
           </div>
-          <form className="form-group mb-3" method="post">
-            <h3 class="form-title text-center font-green my-3">Sign In</h3>
+          <form className="form-group" method="post">
+            <h3 class="form-title text-center font-green my-4">Sign In</h3>
             <div class="form-group">
               <label for="exampleFormControlInput1" class="form-label">
                 User Name
@@ -53,7 +53,7 @@ const Login = () => {
                 }}
               />
             </div>
-            <div class="form-group my-2">
+            <div class="form-group">
               <label for="exampleFormControlInput1" class="form-label">
                 Password
               </label>
@@ -67,10 +67,10 @@ const Login = () => {
                 }}
               />
             </div>
-            <div className="form-group my-2 text-center">
+            <div className="form-group text-center">
               <button
                 type="submit"
-                className="loginBtn my-3 rounded-3"
+                className="loginBtn rounded-3"
                 onClickCapture={(e) => {
                   e.preventDefault();
                   users.map((user) => {

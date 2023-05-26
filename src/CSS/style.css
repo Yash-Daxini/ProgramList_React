@@ -60,6 +60,9 @@ html {
 .login{
     height: 100vh;
 }
+#loginAlert{
+    width: 400px;
+}
 .loginBtn {
     /*background: #fff;*/
     background: #03a9f4;
@@ -70,6 +73,8 @@ html {
     padding: 10px 30px;
     font-size: 16px;
     font-weight: 500;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 .successAddBtn {
     display: flex;
@@ -131,10 +136,14 @@ html {
 }
 .backgroundColorBlue {
     background: #03a9f4; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .backgroundColorBlueLite {
     background: #fff;
     padding: 80px;
+    width: 50%;
     /*background: rgba(255,255,255,0.1);*/
     box-shadow: 0 5px 5px rgba(0,0,0,0.15);
 }
@@ -500,4 +509,39 @@ table .content:hover {
 }
 .selectAll table{
     margin-top: 20px;
+}
+@media only screen and (max-width: 500px) {
+    .backgroundColorBlueLite{
+        width: 80%;
+    }
+}
+@media only screen and (max-width: 1200px) {
+    *{
+        font-size: 15px;
+    }
+    .backgroundColorBlue{
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        overflow-y: auto;
+    }
+    .backgroundColorBlueLite{
+        font-size: 20px;
+        padding: 30px;
+        /* width: 60%; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .backgroundColorBlueLite #loginAlert{
+        width: 220px;
+    }
+    .backgroundColorBlueLite input{
+        width: 220px;
+    }
+    .login{
+        width: 100%;
+        height: 100vh;
+    }
 }
