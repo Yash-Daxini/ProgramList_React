@@ -93,54 +93,55 @@ const Home = () => {
       <div class="cardBox text-center">
         {cardsOfCount}
         <div class="card">
-          <div>
-            <div class="cardNumber" data-val={totalProgram}>
-              {totalProgram}
-            </div>
+          {/* <div> */}
+          <div class="cardNumber" data-val={totalProgram}>
+            {totalProgram}
           </div>
           <div class="cardName">Total Questions</div>
+          {/* </div> */}
         </div>
       </div>
-      <div class="homePart">
+      <div class="homePart d-flex flex-wrap">
         <div class="userFeedback">
           <h4>Login User Inforamation</h4>
-          <table
-            class="table text-center my-3"
-            cellpadding="40px"
-            cellspacing="40px"
-          >
-            <thead>
-              <tr>
-                <th scope="col">User Name</th>
-                <th scope="col">User Email</th>
-                <th scope="col">User Mobile Number</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                {sessionStorage.getItem("user") === null ? (
-                  <td></td>
-                ) : (
-                  <>
-                    <td>
-                      {JSON.parse(sessionStorage.getItem("user")).user_Name}
-                    </td>
-                    <td>
-                      {
-                        JSON.parse(sessionStorage.getItem("user"))
-                          .user_EmailAddress
-                      }
-                    </td>
-                    <td>
-                      {
-                        JSON.parse(sessionStorage.getItem("user"))
-                          .user_MobileNumber
-                      }
-                    </td>
-                  </>
-                )}
-              </tr>
-              {/* <tr>
+          <div className="table-responsive">
+            <table
+              class="table text-center my-3"
+              cellpadding="40px"
+              cellspacing="40px"
+            >
+              <thead>
+                <tr>
+                  <th scope="col">User Name</th>
+                  <th scope="col">User Email</th>
+                  <th scope="col">User Mobile Number</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  {sessionStorage.getItem("user") === null ? (
+                    <td></td>
+                  ) : (
+                    <>
+                      <td>
+                        {JSON.parse(sessionStorage.getItem("user")).user_Name}
+                      </td>
+                      <td>
+                        {
+                          JSON.parse(sessionStorage.getItem("user"))
+                            .user_EmailAddress
+                        }
+                      </td>
+                      <td>
+                        {
+                          JSON.parse(sessionStorage.getItem("user"))
+                            .user_MobileNumber
+                        }
+                      </td>
+                    </>
+                  )}
+                </tr>
+                {/* <tr>
                 <td>Allan Smith</td>
                 <td>
                   <span>
@@ -197,8 +198,9 @@ const Home = () => {
                   </span>
                 </td>
               </tr> */}
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
         </div>
         <div class="recentUser">
           <h4>Recent Admin User</h4>

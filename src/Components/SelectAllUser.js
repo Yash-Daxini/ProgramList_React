@@ -103,7 +103,7 @@ const SelectAllUser = () => {
     <div className="selectAll main">
       <div className="d-flex justify-content-between">
         <div>
-          <h1>Programs</h1>
+          <h1>Users</h1>
         </div>
         <div>
           <Link className="successAddBtn rounded-3 m-2" to={"../InsertUser"}>
@@ -111,8 +111,8 @@ const SelectAllUser = () => {
           </Link>
         </div>
       </div>
-      <div>
-        <table class="table">
+      <div className="table-responsive">
+        <table class="table table-borderless">
           <thead>
             <tr>
               <th scope="col">Name</th>

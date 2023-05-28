@@ -5,17 +5,19 @@ const Topbar = () => {
 
     const naviagate = useNavigate();
 
-    const toggleMenu = ()=>{
-        let toggle = document.querySelector('.toggle');
-        let navigation = document.querySelector('.navigation');
-        let main = document.querySelector('.main');
-        toggle.classList.toggle('active');
-        navigation.classList.toggle('active');
-        main.classList.toggle('active');
-    }
+    const toggleMenu = () => {
+      let toggle = document.querySelector(".toggle");
+      let toggleInSideBar = document.querySelector(".toggleInSideBar");
+      let navigation = document.querySelector(".navigation");
+      let main = document.querySelector(".main");
+      toggle.classList.toggle("active");
+      toggleInSideBar.classList.toggle("active");
+      navigation.classList.toggle("active");
+      main.classList.toggle("active");
+    };
 
   return (
-    <div>
+    <>
       <div class="topbar">
         <div class="toggle" onClick={toggleMenu}></div>
         <div class="logoName">
@@ -36,7 +38,7 @@ const Topbar = () => {
           <ion-icon name="person-circle-outline"></ion-icon>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

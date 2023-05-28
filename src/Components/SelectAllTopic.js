@@ -48,8 +48,8 @@ const SelectAllTopic = () => {
           <h1>Topics</h1>
         </div>
       </div>
-      <div>
-        <table class="table">
+      <div className="table-responsive">
+        <table class="table table-borderless">
           <thead>
             <tr>
               <th scope="col">Name</th>

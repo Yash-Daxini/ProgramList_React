@@ -155,11 +155,11 @@ const SelectAll = () => {
 
   return (
     <div className="selectAll main">
-      <div className="d-flex justify-content-between">
+      <div className="d-flex justify-content-between flex-wrap">
         <div>
           <h1>Programs</h1>
         </div>
-        <div className="d-flex justify-content-center aligm-items-center w-50">
+        <div className="d-flex justify-content-center aligm-items-center flex-wrap w-50">
           <select
             className="form-control m-2"
             value={filterObj.program_Topic}
@@ -194,8 +194,8 @@ const SelectAll = () => {
           </Link>
         </div>
       </div>
-      <div>
-        <table class="table">
+      <div className="table-responsive">
+        <table class="table table-borderless">
           <thead>
             <tr>
               <th scope="col">Name</th>
